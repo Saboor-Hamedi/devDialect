@@ -49,6 +49,42 @@ new class extends Component {
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
 
+                <!-- Notifications Dropdown -->
+                <x-dropdown align="right" width="w-80">
+                    <x-slot name="trigger">
+                        <button
+                            class="relative p-2 mr-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 transition-colors">
+                            <i class="fa-regular fa-bell text-lg"></i>
+                            <!-- Notification Badge -->
+                            <span
+                                class="absolute top-1.5 right-1.5 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white dark:ring-gray-800"></span>
+                        </button>
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div class="px-4 py-2 border-b border-gray-100 dark:border-gray-600">
+                            <span class="text-xs font-semibold text-gray-400 uppercase">Notifications</span>
+                        </div>
+
+                        <div
+                            class="py-2 px-4 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                            <p class="font-medium">Welcome to DevDialect!</p>
+                            <p class="text-xs text-gray-500">Just now</p>
+                        </div>
+                        <div
+                            class="py-2 px-4 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                            <p class="font-medium">Profile updated successfully</p>
+                            <p class="text-xs text-gray-500">2 mins ago</p>
+                        </div>
+
+                        <div class="border-t border-gray-100 dark:border-gray-600"></div>
+                        <div class="p-2 text-center">
+                            <a href="#" class="text-xs text-indigo-600 hover:text-indigo-500 font-medium">Mark all as
+                                read</a>
+                        </div>
+                    </x-slot>
+                </x-dropdown>
+
                 <!-- Settings Dropdown -->
                 <x-dropdown align="right" width="w-56">
                     <x-slot name="trigger">

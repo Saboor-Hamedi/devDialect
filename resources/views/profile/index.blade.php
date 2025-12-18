@@ -66,10 +66,7 @@
             <div class="lg:col-span-2 space-y-6">
                 <!-- Create Post Widget -->
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4">
-                    <div class="flex items-start space-x-4">
-                        <img class="h-10 w-10 rounded-full object-cover bg-gray-200 shrink-0"
-                            src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&color=7F9CF5&background=EBF4FF"
-                            alt="{{ $user->name }}">
+                    <div class="flex items-start">
                         <div class="flex-1 min-w-0">
                             <textarea rows="2"
                                 class="block w-full rounded-xl border-0 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:ring-0 resize-none text-sm p-3"
