@@ -6,9 +6,9 @@
     display: none !important;
 }
 
-/* Prevent layout jump on load */
+/* Prevent layout jump on load (Main Sidebar Only) */
 @media (min-width: 1024px) {
-    .sidebar-expanded aside {
+    .is-loading aside#main-sidebar {
         width: 250px !important;
         min-width: 250px !important;
         opacity: 1 !important;

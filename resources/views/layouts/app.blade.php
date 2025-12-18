@@ -27,19 +27,25 @@
         const isDesktop = window.innerWidth >= 1024;
         const sidebarState = localStorage.getItem('sidebarOpen');
         if (isDesktop && (sidebarState === null || sidebarState === 'true')) {
-            document.documentElement.classList.add('sidebar-expanded');
+            document.documentElement.classList.add('sidebar-expanded', 'is-loading');
         } else {
             document.documentElement.classList.remove('sidebar-expanded');
         }
     </script>
 </head>
 
-<body class="antialiased" x-data="{ 
+<body class="antialiased" x-data="{
         sidebarOpen: document.documentElement.classList.contains('sidebar-expanded'),
         init() {
             if (window.innerWidth < 1024) {
                 this.sidebarOpen = false;
             }
+
+            // Re-enable transitions after initial render
+            this.$nextTick(() => {
+                document.documentElement.classList.remove('is-loading');
+            });
+
             this.$watch('sidebarOpen', val => {
                 if (window.innerWidth >= 1024) {
                     localStorage.setItem('sidebarOpen', val);

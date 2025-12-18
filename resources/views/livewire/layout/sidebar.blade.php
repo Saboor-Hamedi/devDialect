@@ -15,7 +15,7 @@ new class extends Component {
     }
 }; ?>
 
-<aside
+<aside id="main-sidebar"
     :class="sidebarOpen ? 'translate-x-0 lg:w-[250px] lg:min-w-[250px]' : '-translate-x-full lg:translate-x-0 lg:w-0 lg:min-w-0 lg:opacity-0 lg:pointer-events-none'"
     class="fixed top-16 bottom-0 left-0 z-30 w-[250px] bg-white border-r border-gray-100 dark:bg-gray-800 dark:border-gray-700 transition-all duration-300 transform flex flex-col lg:static lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)]">
     <!-- Logo -->
