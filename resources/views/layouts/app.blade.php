@@ -16,17 +16,42 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
+        // Handle Theme
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark')
         } else {
             document.documentElement.classList.remove('dark')
         }
+
+        // Handle Sidebar state to prevent layout jump on load
+        const isDesktop = window.innerWidth >= 1024;
+        const sidebarState = localStorage.getItem('sidebarOpen');
+        if (isDesktop && (sidebarState === null || sidebarState === 'true')) {
+            document.documentElement.classList.add('sidebar-expanded');
+        } else {
+            document.documentElement.classList.remove('sidebar-expanded');
+        }
     </script>
 </head>
 
-<body class="antialiased" x-data="{ sidebarOpen: window.innerWidth >= 1024 }">
+<body class="antialiased" x-data="{ 
+        sidebarOpen: document.documentElement.classList.contains('sidebar-expanded'),
+        init() {
+            if (window.innerWidth < 1024) {
+                this.sidebarOpen = false;
+            }
+            this.$watch('sidebarOpen', val => {
+                if (window.innerWidth >= 1024) {
+                    localStorage.setItem('sidebarOpen', val);
+                }
+                if (val) document.documentElement.classList.add('sidebar-expanded');
+                else document.documentElement.classList.remove('sidebar-expanded');
+            });
+        }
+    }" @resize.window="if (window.innerWidth < 1024) sidebarOpen = false;">
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         <livewire:layout.command-palette />
+
         <livewire:layout.navigation />
 
         <!-- Mobile Sidebar Backdrop -->
@@ -40,7 +65,7 @@
             <livewire:layout.sidebar />
 
             <!-- Main Content -->
-            <main class="flex-1 w-full">
+            <main class="flex-1 w-full transition-all duration-300">
                 {{ $slot }}
             </main>
         </div>

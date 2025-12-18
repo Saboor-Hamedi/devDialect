@@ -15,7 +15,7 @@ new class extends Component {
     }
 }; ?>
 
-<aside x-cloak
+<aside
     :class="sidebarOpen ? 'translate-x-0 lg:w-[250px] lg:min-w-[250px]' : '-translate-x-full lg:translate-x-0 lg:w-0 lg:min-w-0 lg:opacity-0 lg:pointer-events-none'"
     class="fixed top-16 bottom-0 left-0 z-30 w-[250px] bg-white border-r border-gray-100 dark:bg-gray-800 dark:border-gray-700 transition-all duration-300 transform flex flex-col lg:static lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)]">
     <!-- Logo -->
@@ -106,12 +106,11 @@ new class extends Component {
     <div class="p-3 border-t border-gray-100 dark:border-gray-700 shrink-0">
         <div class="flex items-center p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
             <div class="flex items-center min-w-0 flex-1">
-                <div class="relative overflow-hidden bg-gray-100 rounded-full w-8 h-8 dark:bg-gray-600 shrink-0">
-                    <svg class="absolute text-gray-400 w-10 h-10 -left-1" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                            clip-rule="evenodd"></path>
-                    </svg>
+                <div class="relative overflow-hidden bg-gray-100 rounded-full w-9 h-9 dark:bg-gray-600 shrink-0 border-2 border-white dark:border-gray-700 shadow-sm"
+                    x-data="{ 
+                        avatar: '{{ auth()->user()->profile_photo_path ? Storage::url(auth()->user()->profile_photo_path) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&color=7F9CF5&background=EBF4FF' }}' 
+                     }" x-on:profile-updated.window="avatar = $event.detail.profile_photo_url || avatar">
+                    <img :src="avatar" class="w-full h-full object-cover" alt="{{ auth()->user()->name }}">
                 </div>
                 <div class="min-w-0 ml-3 flex-1">
                     <p class="text-sm font-medium text-gray-700 truncate dark:text-gray-200"

@@ -35,7 +35,9 @@ new class extends Component {
                 <div class="shrink-0 flex items-center ml-6">
                     <a href="{{ route('dashboard') }}" wire:navigate>
                         <span
-                            class="text-2xl font-black tracking-tighter text-indigo-600 dark:text-indigo-400 font-sans">DevDialect</span>
+                            class="text-2xl font-black tracking-tighter text-indigo-600 dark:text-indigo-400 font-sans">
+                            Dev Dialect
+                        </span>
                     </a>
                 </div>
             </div>
@@ -86,20 +88,23 @@ new class extends Component {
                 </x-dropdown>
 
                 <!-- Settings Dropdown -->
-                <x-dropdown align="right" width="w-56">
+                <x-dropdown align="right" width="w-48">
                     <x-slot name="trigger">
                         <button
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-transparent hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name"
-                                x-on:profile-updated.window="name = $event.detail.name"></div>
+                            class="inline-flex items-center px-1 py-1 border border-transparent text-sm leading-4 font-medium rounded-full text-gray-500 dark:text-gray-400 bg-transparent hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150 group">
 
-                            <div class="ml-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
+                            <div class="relative w-8 h-8 rounded-full overflow-hidden border-2 border-transparent group-hover:border-indigo-500 transition-colors"
+                                x-data="{ 
+                                    avatar: '{{ auth()->user()->profile_photo_path ? Storage::url(auth()->user()->profile_photo_path) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&color=7F9CF5&background=EBF4FF' }}' 
+                                 }" x-on:profile-updated.window="avatar = $event.detail.profile_photo_url || avatar">
+                                <img :src="avatar" class="w-full h-full object-cover" alt="{{ auth()->user()->name }}">
+                            </div>
+
+                            <div class="ml-2 hidden md:flex items-center">
+                                <span class="text-sm font-semibold text-gray-700 dark:text-gray-200 mr-1"
+                                    x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name"
+                                    x-on:profile-updated.window="name = $event.detail.name"></span>
+                                <i class="fa-solid fa-chevron-down text-[10px] text-gray-400"></i>
                             </div>
                         </button>
                     </x-slot>
