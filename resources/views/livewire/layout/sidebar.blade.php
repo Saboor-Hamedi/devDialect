@@ -102,31 +102,41 @@ new class extends Component {
     </nav>
 
     <!-- User Profile & Logout -->
-    <!-- User Profile & Logout -->
-    <div class="p-3 border-t border-gray-100 dark:border-gray-700 shrink-0">
-        <div class="flex items-center p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
-            <div class="flex items-center min-w-0 flex-1">
-                <div class="relative overflow-hidden bg-gray-100 rounded-full w-9 h-9 dark:bg-gray-600 shrink-0 border-2 border-white dark:border-gray-700 shadow-sm"
-                    x-data="{ 
-                        avatar: '{{ auth()->user()->profile_photo_path ? Storage::url(auth()->user()->profile_photo_path) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&color=7F9CF5&background=EBF4FF' }}' 
-                     }" x-on:profile-updated.window="avatar = $event.detail.profile_photo_url || avatar">
-                    <img :src="avatar" class="w-full h-full object-cover" alt="{{ auth()->user()->name }}">
+    @auth
+        <div class="p-3 border-t border-gray-100 dark:border-gray-700 shrink-0">
+            <div class="flex items-center p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                <div class="flex items-center min-w-0 flex-1">
+                    <div class="relative overflow-hidden bg-gray-100 rounded-full w-9 h-9 dark:bg-gray-600 shrink-0 border-2 border-white dark:border-gray-700 shadow-sm"
+                        x-data="{ 
+                                avatar: '{{ auth()->user()->profile_photo_path ? Storage::url(auth()->user()->profile_photo_path) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&color=7F9CF5&background=EBF4FF' }}' 
+                             }" x-on:profile-updated.window="avatar = $event.detail.profile_photo_url || avatar">
+                        <img :src="avatar" class="w-full h-full object-cover" alt="{{ auth()->user()->name }}">
+                    </div>
+                    <div class="min-w-0 ml-3 flex-1">
+                        <p class="text-sm font-medium text-gray-700 truncate dark:text-gray-200"
+                            x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name"
+                            x-on:profile-updated.window="name=$event.detail.name"></p>
+                        <p class="text-xs text-gray-400 truncate dark:text-gray-500">
+                            {{ auth()->user()->email }}
+                        </p>
+                    </div>
                 </div>
-                <div class="min-w-0 ml-3 flex-1">
-                    <p class="text-sm font-medium text-gray-700 truncate dark:text-gray-200"
-                        x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name"
-                        x-on:profile-updated.window="name=$event.detail.name"></p>
-                    <p class="text-xs text-gray-400 truncate dark:text-gray-500">
-                        {{ auth()->user()->email }}
-                    </p>
-                </div>
-            </div>
 
-            <button wire:click="logout"
-                class="ml-2 p-1.5 text-gray-400 hover:text-red-500 rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
-                title="Log out">
-                <i class="fa-solid fa-arrow-right-from-bracket w-4 h-4"></i>
-            </button>
+                <button wire:click="logout"
+                    class="ml-2 p-1.5 text-gray-400 hover:text-red-500 rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                    title="Log out">
+                    <i class="fa-solid fa-arrow-right-from-bracket w-4 h-4"></i>
+                </button>
+            </div>
         </div>
-    </div>
+    @else
+        <div class="p-4 border-t border-gray-100 dark:border-gray-700">
+            <a href="{{ route('login') }}"
+                class="flex items-center justify-center space-x-2 px-4 py-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl text-xs font-bold hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-all"
+                wire:navigate>
+                <i class="fa-solid fa-right-to-bracket"></i>
+                <span>Sign In</span>
+            </a>
+        </div>
+    @endauth
 </aside>

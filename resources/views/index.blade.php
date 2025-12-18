@@ -112,34 +112,43 @@
                 </div>
             </div>
 
-            <!-- Global Feed Preview -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-                <div class="space-y-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-2xl font-black flex items-center">
-                            <i class="fa-solid fa-fire-flame-curved text-orange-500 mr-3"></i>
-                            Recent Hot Snippets
-                        </h2>
-                        <span class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Read
-                            Only Mode</span>
-                    </div>
-                    <div class="pointer-events-none opacity-80 sm:opacity-100">
-                        <livewire:snippets.snippet-feed />
+            <!-- Tabbed Feed Section -->
+            <div x-data="{ activeFeed: 'snippets' }" class="mb-20">
+                <div class="flex items-center justify-between mb-8 border-b border-gray-100 dark:border-gray-800 pb-4">
+                    <h2 class="text-3xl font-black tracking-tight flex items-center">
+                        <i class="fa-solid fa-bolt-lightning text-yellow-500 mr-3 animate-pulse"></i>
+                        The Dialect Stream
+                    </h2>
+
+                    <div class="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
+                        <button @click="activeFeed = 'snippets'"
+                            :class="activeFeed === 'snippets' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
+                            class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all">
+                            Snippets
+                        </button>
+                        <button @click="activeFeed = 'posts'"
+                            :class="activeFeed === 'posts' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
+                            class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all">
+                            Posts
+                        </button>
                     </div>
                 </div>
 
-                <div class="space-y-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-2xl font-black flex items-center">
-                            <i class="fa-solid fa-newspaper text-blue-500 mr-3"></i>
-                            Community Feed
-                        </h2>
-                        <span
-                            class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest text-right">Latest
-                            Updates</span>
+                <div class="relative min-h-[400px]">
+                    <!-- Snippet Feed Tab -->
+                    <div x-show="activeFeed === 'snippets'"
+                        x-transition:enter="transition ease-out duration-300 transform"
+                        x-transition:enter-start="opacity-0 translate-y-4"
+                        x-transition:enter-end="opacity-100 translate-y-0" class="opacity-90">
+                        <livewire:snippets.snippet-feed />
                     </div>
-                    <div class="pointer-events-none opacity-80 sm:opacity-100">
-                        <livewire:posts.post-feed />
+
+                    <!-- Post Feed Tab -->
+                    <div x-show="activeFeed === 'posts'" x-cloak
+                        x-transition:enter="transition ease-out duration-300 transform"
+                        x-transition:enter-start="opacity-0 translate-x-4"
+                        x-transition:enter-end="opacity-100 translate-x-0" class="opacity-90">
+                        <livewire:posts.post-feed layout="grid" perPage="3" />
                     </div>
                 </div>
             </div>

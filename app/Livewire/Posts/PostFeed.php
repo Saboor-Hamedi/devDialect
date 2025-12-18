@@ -10,12 +10,29 @@ use Livewire\Attributes\On;
 class PostFeed extends Component
 {
     public $perPage = 10;
+    public $layout = 'list';
+    public $perPageBatch = 10;
+    public $userId;
+
+    public function mount($perPage = 10, $layout = 'list', $userId = null)
+    {
+        $this->perPage = $perPage;
+        $this->perPageBatch = $perPage; // Set batch size to initial size
+        $this->layout = $layout;
+        $this->userId = $userId;
+    }
 
     #[On('post-created')]
     public function render()
     {
-        $total = Post::count();
-        $posts = Post::with('user')->latest()->take($this->perPage)->get();
+        $query = Post::with('user')->latest();
+
+        if ($this->userId) {
+            $query->where('user_id', $this->userId);
+        }
+
+        $total = $query->count();
+        $posts = $query->take($this->perPage)->get();
 
         return view('livewire.posts.post-feed', [
             'posts' => $posts,
@@ -25,7 +42,7 @@ class PostFeed extends Component
 
     public function loadMore()
     {
-        $this->perPage += 10;
+        $this->perPage += $this->perPageBatch;
     }
 
     public function delete($id)

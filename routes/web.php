@@ -3,7 +3,7 @@
 use App\Http\Controllers\UserProfileController;
 
 Route::get('/user/profile', [UserProfileController::class, 'index'])->middleware(['auth'])->name('user.profile');
-Route::view('/', 'welcome');
+Route::view('/', 'index')->name('welcome');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

@@ -51,9 +51,11 @@
                     <div x-show="activeTab === 'posts'" x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0 translate-y-4"
                         x-transition:enter-end="opacity-100 translate-y-0">
-                        <livewire:posts.create-post />
+                        @if (auth()->id() === $user->id)
+                            <livewire:posts.create-post />
+                        @endif
                         <div class="mt-6">
-                            <livewire:posts.post-feed />
+                            <livewire:posts.post-feed :user-id="$user->id" />
                         </div>
                     </div>
 
@@ -61,9 +63,11 @@
                     <div x-show="activeTab === 'snippets'" x-cloak x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0 translate-y-4"
                         x-transition:enter-end="opacity-100 translate-y-0">
-                        <livewire:snippets.create-snippet />
+                        @if (auth()->id() === $user->id)
+                            <livewire:snippets.create-snippet />
+                        @endif
                         <div class="mt-6">
-                            <livewire:snippets.snippet-feed />
+                            <livewire:snippets.snippet-feed :user-id="$user->id" />
                         </div>
                     </div>
                 </div>

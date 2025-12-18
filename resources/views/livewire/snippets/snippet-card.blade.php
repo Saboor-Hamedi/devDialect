@@ -98,31 +98,51 @@
                 {{ $snippet->title }}
             </h2>
 
-            <div class="relative">
-                <!-- Markdown View -->
-                @if ($snippet->language === 'markdown')
-                    <div class="prose prose-sm dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed">
-                        {!! $snippet->rendered_content !!}
-                    </div>
-                @else
-                    <!-- Code Block with Copy Button -->
-                    <div class="relative rounded-lg overflow-hidden border border-gray-100 dark:border-gray-700" x-data="{ 
-                                            copied: false,
-                                            copy() {
-                                                $clipboard($refs.codeContent.innerText);
-                                                this.copied = true;
-                                                setTimeout(() => this.copied = false, 2000);
-                                            }
-                                        }">
-                        <button @click="copy"
-                            class="absolute top-2 right-2 p-1.5 rounded-lg bg-gray-900/50 hover:bg-gray-900 text-white/70 hover:text-white backdrop-blur-sm transition-all z-10">
-                            <i class="fa-solid" :class="copied ? 'fa-check text-green-400' : 'fa-copy text-[10px]'"></i>
-                        </button>
+            <div x-data="{ expanded: false }" class="relative">
+                <!-- Content Area with Height Limit -->
+                <div :class="expanded ? 'max-h-[1000px]' : 'max-h-[300px]'"
+                    class="transition-all duration-700 ease-in-out relative overflow-hidden">
+                    <!-- Markdown View -->
+                    @if ($snippet->language === 'markdown')
+                        <div
+                            class="prose prose-sm dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed">
+                            {!! $snippet->rendered_content !!}
+                        </div>
+                    @else
+                        <!-- Code Block with Copy Button -->
+                        <div class="relative rounded-lg overflow-hidden border border-gray-100 dark:border-gray-700" x-data="{ 
+                                                                                copied: false,
+                                                                                copy() {
+                                                                                    $clipboard($refs.codeContent.innerText);
+                                                                                    this.copied = true;
+                                                                                    setTimeout(() => this.copied = false, 2000);
+                                                                                }
+                                                                            }">
+                            <button @click="copy"
+                                class="absolute top-2 right-2 p-1.5 rounded-lg bg-gray-900/50 hover:bg-gray-900 text-white/70 hover:text-white backdrop-blur-sm transition-all z-10">
+                                <i class="fa-solid" :class="copied ? 'fa-check text-green-400' : 'fa-copy text-[10px]'"></i>
+                            </button>
 
-                        <pre class="bg-gray-900 text-gray-100 text-[11px] font-mono p-4 overflow-x-auto leading-relaxed"
-                            style="scrollbar-width: thin;"><code x-ref="codeContent">{{ $snippet->content }}</code></pre>
+                            <pre class="bg-gray-900 text-gray-100 text-[11px] font-mono p-4 overflow-x-auto leading-relaxed"
+                                style="scrollbar-width: thin;"><code x-ref="codeContent">{{ $snippet->content }}</code></pre>
+                        </div>
+                    @endif
+
+                    <!-- Gradient Fade for long content -->
+                    <div x-show="!expanded"
+                        class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-white dark:from-gray-800 to-transparent pointer-events-none">
                     </div>
-                @endif
+                </div>
+
+                <!-- See More Button -->
+                <div class="flex justify-center mt-2">
+                    <button @click="expanded = !expanded"
+                        class="text-[10px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors flex items-center space-x-1 py-1">
+                        <span x-text="expanded ? 'Show Less' : 'See More Content'"></span>
+                        <i class="fa-solid transition-transform duration-300"
+                            :class="expanded ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                    </button>
+                </div>
             </div>
         </div>
     @endif

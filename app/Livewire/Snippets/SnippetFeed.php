@@ -8,7 +8,13 @@ use Livewire\Component;
 class SnippetFeed extends Component
 {
     public $perPage = 10;
+    public $userId;
     protected $listeners = ['snippet-created' => '$refresh'];
+
+    public function mount($userId = null)
+    {
+        $this->userId = $userId;
+    }
 
     public function loadMore()
     {
@@ -26,8 +32,14 @@ class SnippetFeed extends Component
 
     public function render()
     {
-        $total = Snippet::count();
-        $snippets = Snippet::with('user')->latest()->take($this->perPage)->get();
+        $query = Snippet::with('user')->latest();
+
+        if ($this->userId) {
+            $query->where('user_id', $this->userId);
+        }
+
+        $total = $query->count();
+        $snippets = $query->take($this->perPage)->get();
 
         return view('livewire.snippets.snippet-feed', [
             'snippets' => $snippets,
