@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserProfileController;
 
+Route::get('/user/profile', [UserProfileController::class, 'index'])->middleware(['auth'])->name('user.profile');
 Route::view('/', 'welcome');
 
 Route::view('dashboard', 'dashboard')
@@ -12,4 +13,8 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-require __DIR__.'/auth.php';
+Route::view('settings', 'settings')
+    ->middleware(['auth'])
+    ->name('settings');
+
+require __DIR__ . '/auth.php';
