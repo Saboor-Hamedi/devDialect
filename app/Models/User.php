@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    public function snippets()
+    {
+        return $this->hasMany(Snippet::class);
+    }
 }

@@ -21,15 +21,17 @@ new class extends Component {
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Hamburger -->
-                <div class="-mr-2 flex items-center">
-                    <button @click="sidebarOpen = ! sidebarOpen"
-                        class="inline-flex items-center justify-center p-1 rounded-full text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none transition duration-150 ease-in-out">
-                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                            <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+                @if(request()->routeIs('dashboard') || request()->routeIs('profile') || request()->routeIs('settings') || request()->routeIs('user.profile'))
+                    <div class="-mr-2 flex items-center">
+                        <button @click="sidebarOpen = ! sidebarOpen"
+                            class="inline-flex items-center justify-center p-1 rounded-full text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none transition duration-150 ease-in-out">
+                            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                    </div>
+                @endif
 
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center ml-6">
