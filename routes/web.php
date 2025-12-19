@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\UserProfileController;
 
-Route::get('/user/profile', [UserProfileController::class, 'index'])->middleware(['auth'])->name('user.profile');
+Route::get('/user/profile', [UserProfileController::class, 'index'])->middleware(['auth', 'verified'])->name('user.profile');
 Route::view('/', 'index')->name('welcome');
 
 Route::view('dashboard', 'dashboard')
@@ -10,11 +10,11 @@ Route::view('dashboard', 'dashboard')
     ->name('dashboard');
 
 Route::view('profile', 'profile')
-    ->middleware(['auth'])
+    ->middleware(['auth', 'verified'])
     ->name('profile');
 
 Route::view('settings', 'settings')
-    ->middleware(['auth'])
+    ->middleware(['auth', 'verified'])
     ->name('settings');
 
 require __DIR__ . '/auth.php';
