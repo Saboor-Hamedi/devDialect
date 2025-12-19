@@ -6,13 +6,38 @@
     display: none !important;
 }
 
-/* Prevent layout jump on load (Main Sidebar Only) */
+/* Prevent layout jump on load */
+.is-loading,
+.is-loading *,
+.is-loading *::before,
+.is-loading *::after {
+    transition: none !important;
+    animation: none !important;
+}
+
+/* Sidebar Initial State (before Alpine) */
+aside#main-sidebar {
+    transform: translateX(-100%); /* Start hidden on mobile */
+}
+
+.sidebar-expanded aside#main-sidebar {
+    transform: translateX(0) !important; /* Show if expanded */
+}
+
 @media (min-width: 1024px) {
-    .is-loading aside#main-sidebar {
+    aside#main-sidebar {
+        /* Collapsed state on desktop */
+        width: 0 !important;
+        min-width: 0 !important;
+        opacity: 0 !important;
+        transform: none !important;
+    }
+
+    .sidebar-expanded aside#main-sidebar {
+        /* Expanded state on desktop */
         width: 250px !important;
         min-width: 250px !important;
         opacity: 1 !important;
-        transform: translate(0, 0) !important;
-        transition: none !important;
+        transform: none !important;
     }
 }

@@ -16,6 +16,9 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
+        // Start with is-loading
+        document.documentElement.classList.add('is-loading');
+
         // Handle Theme
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark')
@@ -23,15 +26,16 @@
             document.documentElement.classList.remove('dark')
         }
 
-        // Handle Sidebar state to prevent layout jump on load
+        // Handle Sidebar state
         const isDesktop = window.innerWidth >= 1024;
         const sidebarState = localStorage.getItem('sidebarOpen');
         if (isDesktop && (sidebarState === null || sidebarState === 'true')) {
-            document.documentElement.classList.add('sidebar-expanded', 'is-loading');
+            document.documentElement.classList.add('sidebar-expanded');
         } else {
             document.documentElement.classList.remove('sidebar-expanded');
         }
     </script>
+    @livewireStyles
 </head>
 
 <body class="antialiased" x-data="{
@@ -41,7 +45,7 @@
                 this.sidebarOpen = false;
             }
 
-            // Re-enable transitions after initial render
+            // Remove is-loading after Alpine is ready
             this.$nextTick(() => {
                 document.documentElement.classList.remove('is-loading');
             });
@@ -77,6 +81,7 @@
         </div>
         <x-theme-toggle />
     </div>
+    @livewireScripts
 </body>
 
 </html>

@@ -108,8 +108,8 @@ new class extends Component {
                 <div class="flex items-center min-w-0 flex-1">
                     <div class="relative overflow-hidden bg-gray-100 rounded-full w-9 h-9 dark:bg-gray-600 shrink-0 border-2 border-white dark:border-gray-700 shadow-sm"
                         x-data="{ 
-                                avatar: '{{ auth()->user()->profile_photo_path ? Storage::url(auth()->user()->profile_photo_path) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&color=7F9CF5&background=EBF4FF' }}' 
-                             }" x-on:profile-updated.window="avatar = $event.detail.profile_photo_url || avatar">
+                                        avatar: '{{ auth()->user()->profile_photo_path ? Storage::url(auth()->user()->profile_photo_path) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&color=7F9CF5&background=EBF4FF' }}' 
+                                     }" x-on:profile-updated.window="avatar = $event.detail.profile_photo_url || avatar">
                         <img :src="avatar" class="w-full h-full object-cover" alt="{{ auth()->user()->name }}">
                     </div>
                     <div class="min-w-0 ml-3 flex-1">

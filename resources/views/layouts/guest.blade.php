@@ -16,6 +16,9 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
+        // Start with is-loading
+        document.documentElement.classList.add('is-loading');
+
         // Handle Theme
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark')
@@ -23,9 +26,11 @@
             document.documentElement.classList.remove('dark')
         }
     </script>
+    @livewireStyles
 </head>
 
-<body class="font-sans text-gray-900 antialiased bg-gray-100 dark:bg-gray-900 min-h-screen">
+<body class="font-sans text-gray-900 antialiased bg-gray-100 dark:bg-gray-900 min-h-screen"
+    x-data="{ init() { this.$nextTick(() => document.documentElement.classList.remove('is-loading')); } }">
     <livewire:layout.navigation />
 
     <div class="flex flex-col items-center pt-8 sm:pt-16 px-4">
@@ -33,6 +38,7 @@
     </div>
 
     <x-theme-toggle />
+    @livewireScripts
 </body>
 
 </html>
