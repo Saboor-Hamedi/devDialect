@@ -1,0 +1,73 @@
+{
+
+  "terminalSessions": {
+    "terminal-1769946093839": {
+      "color": "#cd3131",
+      "name": "bash 1"
+    },
+    "terminal-1769954502285": {
+      "color": "#cd3131"
+    },
+    "terminal-1769954786467": {
+      "color": "#ffffff",
+      "name": "localhost"
+    },
+    "terminal-1769954824144": {
+      "color": "#cd3131"
+    },
+    "terminal-1769954825442": {
+      "color": "#11a8cd"
+    },
+    "terminal-1769954825995": {
+      "color": "#2472c8"
+    },
+    "terminal-1769955061781": {
+      "color": "#cd3131"
+    },
+    "terminal-1769955209935": {
+      "name": "cmd 2"
+    },
+    "terminal-1769955421157": {
+      "color": "#cd3131"
+    },
+    "terminal-1769955506980": {
+      "color": "#cd3131"
+    },
+    "terminal-1769955507541": {
+      "color": "#cd3131"
+    },
+    "terminal-1769955507725": {
+      "color": "#2472c8"
+    },
+    "terminal-1769955507932": {
+      "color": "#11a8cd"
+    },
+    "terminal-1769955508166": {
+      "color": "#11a8cd"
+    },
+    "terminal-1769955612126": {
+      "color": "#11a8cd"
+    },
+    "terminal-1769958219718": {
+      "name": "bash 2"
+    },
+    "terminal-1769986461808": {
+      "color": "#4ec9b0"
+    },
+    "terminal-1769992824140": {
+      "name": "cmd 1"
+    },
+    "terminal-1770011377941": {
+      "color": "#e5e510"
+    },
+    "terminal-1770011436793": {
+      "color": "#ffffff"
+    },
+    "terminal-1770012772321": {
+      "color": "#cd3131"
+    },
+    "terminal-1770015187674": {
+      "name": "cmd 1"
+    }
+  }
+}
